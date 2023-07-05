@@ -2,6 +2,8 @@ const FRONT = "card_front"
 const BACK = "card_back"
 const CARD = "card"
 const ICON = "icon"
+var score = document.getElementById("totalMoves")
+
 
 function newGame(){
     stardGame()
@@ -49,13 +51,13 @@ function createCardFace(face, card, element) {
     element.appendChild(cardElementFace)
 }
 
+
 function flipCard() {
     if (game.setCard(this.id)) {
         this.classList.add("flip")
         if (game.secondCard) {
             let numberGame = document.getElementById("number")
             let counter = document.getElementById("counter")
-
             var total = numberGame.innerHTML ++
             counter.style.background = 'red'
             setTimeout(()=>{
@@ -65,18 +67,15 @@ function flipCard() {
             if (game.checkMatch()) {
                 game.clearCards()
                 counter.style.background = 'green'
+                score.innerHTML = ''
                 setTimeout(()=>{
                     counter.style.background = ''
                 },400)
                 if(game.checkGameOver()){
                     let gameOverLayer = document.getElementById("gameOver")
                     gameOverLayer.style.display = 'flex'
-                    let score = document.getElementById("totalMoves")
                     score.innerHTML = Number(score.innerHTML)+ total
-                    console.log(score) 
-
                     numberGame.innerHTML = 0 
-
                 }
             } else {
                 setTimeout(() => {
